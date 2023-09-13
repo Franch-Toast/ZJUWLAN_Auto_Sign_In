@@ -12,7 +12,7 @@ from sha1_py import *
 
 
 # Website = "http://10.115.9.2/" 使用该地址也会跳转到下面的地址
-# Website = "http://10.115.9.2/srun_portal_pc?ac_id=1&theme=basic"
+Website_info = "http://10.115.9.2/cgi-bin/rad_user_info" # 用于读取当前登录的信息
 Website_challenge = "http://10.115.9.2/cgi-bin/get_challenge" # 用于获取token
 Website_portal = "http://10.115.9.2/cgi-bin/srun_portal" # 用于登录
 
@@ -160,12 +160,20 @@ def get_checksum():
     
 
 
-def check_network_status(): # 检测网络是否断联
-    print()
+def get_login_status():
+    params_info = {
+    "callback": "jQuery" + randnum + "_" + str(int(time.time()*1000)),
+    "_": int(time.time()*1000)
+}
+    res = requests.get(Website_info,params=params_info,headers=User_Agent).text
+    # print(res)
+    return res
+
+def get_client_ip():
+    res = get_login_status()
+    return re.search('"online_ip":"(.*?)"', res).group(1)
 
 
-def timer_30min(): # 30min定时器
-    print()
 
 
 if __name__ == '__main__':
@@ -182,11 +190,20 @@ if __name__ == '__main__':
     
     account = input("请输入账号（学号）：")
     origin_pwd = input("请输入密码：")
-    personal_ip = input("请输入本机ip：")
+    personal_ip = get_client_ip()
 
     while(1):
-        print("**********开始尝试登录**********\n")
+        print("**********检测登录状态**********\n")
+        
+        login_status = get_login_status()
+        status = re.search('"error":"(.*?)"', login_status).group(1)
 
-        post_sign_in_information()
+        if status == "not_online_error":
+            print("检测到登陆掉线\n")
+            print("【 开始尝试登录！】\n")
+            post_sign_in_information()
+        else:
+            print("当前登录状态良好，将于"+ str(cycle_time)  +"秒后重新检测\n")
+            print("********************************\n\n")
 
         time.sleep(cycle_time)
