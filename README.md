@@ -91,6 +91,12 @@
 
 
 
+**通过访问获取token，其实就是这里的challenge。**
+
+
+
+
+
 
 
 ### srun_portal
@@ -229,7 +235,9 @@ i = info({
     enc_ver: enc
 }, token),
     
-    
+var enc = "s" + "run" + "_bx1", n = 200, type = 1;
+
+
 function info(d, k) {
     return "{SRBX1}" + $.base64.encode(xEncode(json(d), k));
 }    
@@ -259,4 +267,6 @@ chkstr += token + i;
 var enc = "s" + "run" + "_bx1", n = 200, type = 1;
 
 ```
+
+
 
