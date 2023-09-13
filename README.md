@@ -9,7 +9,7 @@
 
 ​		在学校外的时候经常有需求想通过向日葵远程连接工位上的电脑，但是**校园网在长时间无动作时或长时间休眠后常会断开登录**导致需要频繁手动输入账号密码重新进入登录状态，然而赶回工位手动连接并不现实，**无法实现稳定的日常的远程控制及文件传输需求**。
 
-![](https://github.com/Franch-Toast/ZJUWLAN_Auto_Sign_In/tree/main/pic/1.png)
+![](https://github.com/Franch-Toast/ZJUWLAN_Auto_Sign_In/blob/main/pic/1.png)
 
 ## 项目需求
 
@@ -63,7 +63,7 @@ Website_portal = "http://10.115.9.2/cgi-bin/srun_portal" # 用于登录
 
 根据自己所在位置的URL更改文件中的内容，仅需要更改上面所有的 IP 即可。
 
-![](https://github.com/Franch-Toast/ZJUWLAN_Auto_Sign_In/tree/main/pic/2.png)
+![](https://github.com/Franch-Toast/ZJUWLAN_Auto_Sign_In/blob/main/pic/2.png)
 
 #### 运行脚本
 
@@ -75,7 +75,7 @@ Website_portal = "http://10.115.9.2/cgi-bin/srun_portal" # 用于登录
 2. 登录账号；
 3. 登录密码。
 
-![](https://github.com/Franch-Toast/ZJUWLAN_Auto_Sign_In/tree/main/pic/3.png)
+![](https://github.com/Franch-Toast/ZJUWLAN_Auto_Sign_In/blob/main/pic/3.png)
 
 
 
@@ -98,15 +98,15 @@ Website_portal = "http://10.115.9.2/cgi-bin/srun_portal" # 用于登录
 
 #### 成功登录
 
-![](https://github.com/Franch-Toast/ZJUWLAN_Auto_Sign_In/tree/main/pic/4.png)
+![](https://github.com/Franch-Toast/ZJUWLAN_Auto_Sign_In/blob/main/pic/4.png)
 
 #### 登陆账号或密码错误
 
-![](https://github.com/Franch-Toast/ZJUWLAN_Auto_Sign_In/tree/main/pic/5.png)
+![](https://github.com/Franch-Toast/ZJUWLAN_Auto_Sign_In/blob/main/pic/5.png)
 
 #### 登陆账号不存在
 
-![](https://github.com/Franch-Toast/ZJUWLAN_Auto_Sign_In/tree/main/pic/6.png)
+![](https://github.com/Franch-Toast/ZJUWLAN_Auto_Sign_In/blob/main/pic/6.png)
 
 
 
