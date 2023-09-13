@@ -11,7 +11,7 @@ from md5_py import *
 from sha1_py import *
 
 
-# Website = "http://10.115.9.2/" 使用该地址也会跳转到下面的地址
+# Website = "http://10.115.9.2/" # 使用自己网络连接的请求URL
 Website_info = "http://10.115.9.2/cgi-bin/rad_user_info" # 用于读取当前登录的信息
 Website_challenge = "http://10.115.9.2/cgi-bin/get_challenge" # 用于获取token
 Website_portal = "http://10.115.9.2/cgi-bin/srun_portal" # 用于登录
@@ -71,7 +71,7 @@ def post_sign_in_information(): # 推送登录信息
             print("【 登陆失败！已经处于登录状态中。】\n")
         elif suc_msg == "login_ok":
             print("【 登陆成功！】\n")
-    elif re.search('"error_msg":"(.*?)"', res).group(1) == "E2531: User not found.":
+    elif re.search('"error_msg":"(.*?)"', res).group(1) == "E2531: User not found." or re.search('"error_msg":"(.*?)"', res).group(1) =="E2606: User is disabled.":
         print("【 登陆失败！输入的账号不存在。】\n")
     elif re.search('"error_msg":"(.*?)"', res).group(1) == "E2901: (Third party 1)bind_user2: ldap_bind error":
         print("【 登陆失败！输入的账号或密码错误。】\n")

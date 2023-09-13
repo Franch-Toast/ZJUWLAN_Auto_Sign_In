@@ -1,17 +1,19 @@
 # ZJUWLAN_Auto_Sign_In
-为解决ZJUers的校园网需要频繁登陆问题，通过python脚本定时检测并登录。
+本项目为解决ZJUers的校园网（**ZJUWLAN**）需要频繁登陆问题，通过python脚本定时检测并登录。
+
+项目基于工院学生，其他校区的同学需要根据自身情况进行修改，在[使用方法](#脚本使用方法)中提到修改内容。
 
 
 
 ## 项目起因
 
-在学校外的时候想通过向日葵使用工位上的电脑，但是校园网连接时常会断开，需要频繁手动登录，无法满足日常的连接需求。
+​		在学校外的时候经常有需求想通过向日葵远程连接工位上的电脑，但是**校园网在长时间无动作时或长时间休眠后常会断开登录**导致需要频繁手动输入账号密码重新进入登录状态，然而赶回工位手动连接并不现实，**无法实现稳定的日常的远程控制及文件传输需求**。
 
-
+![](https://github.com/Franch-Toast/ZJUWLAN_Auto_Sign_In/tree/main/pic/1.png)
 
 ## 项目需求
 
-通过Python脚本实现定时检测自动登陆校园网的功能。
+​		分析**ZJUWLAN**登录过程，通过Python脚本实现定时检测登陆状态、自动登陆校园网的功能，保证电脑能够保持网络连接，即使断开连接也能在较短的时间内恢复连接。
 
 
 
@@ -24,249 +26,88 @@
 
 ## 项目实现
 
-
-
-安装BeautifulSoup库 pip install bs4
-
-
-
-输入错误的用户名`12345678`和密码`87654321`，会得到如下响应：
-
-![image-20230912114014684](C:\Users\Administrator\AppData\Roaming\Typora\typora-user-images\image-20230912114014684.png)
-
-
-
-![image-20230912114352864](C:\Users\Administrator\AppData\Roaming\Typora\typora-user-images\image-20230912114352864.png)
-
-![image-20230912114420245](C:\Users\Administrator\AppData\Roaming\Typora\typora-user-images\image-20230912114420245.png)
-
-![image-20230912114502648](C:\Users\Administrator\AppData\Roaming\Typora\typora-user-images\image-20230912114502648.png)
-
-![image-20230912114557783](C:\Users\Administrator\AppData\Roaming\Typora\typora-user-images\image-20230912114557783.png)
-
-![image-20230912114652589](C:\Users\Administrator\AppData\Roaming\Typora\typora-user-images\image-20230912114652589.png)
-
-
-
-![image-20230912114710321](C:\Users\Administrator\AppData\Roaming\Typora\typora-user-images\image-20230912114710321.png)
-
-
-
-![image-20230912114757685](C:\Users\Administrator\AppData\Roaming\Typora\typora-user-images\image-20230912114757685.png)
-
-
-
-
-
-正常登录的请求：
-
-### get_challenge
-
-
-
-![image-20230912121344044](C:\Users\Administrator\AppData\Roaming\Typora\typora-user-images\image-20230912121344044.png)
-
-
-
-![image-20230912121355449](C:\Users\Administrator\AppData\Roaming\Typora\typora-user-images\image-20230912121355449.png)
-
-
-
-|   参数   |          分析           |
-| :------: | :---------------------: |
-| callback | jsonp解决跨域的一个参数 |
-| username |     你的校园网账户      |
-|    ip    |  本机wifi自动获取的ip   |
-|    _     |    当前时间戳(13位)     |
-
-需要注意的是，JSONP 只支持 GET 请求，而且存在一定的安全风险。
-
-
-
-
-
-得到服务器的相应：
-
-![image-20230912121617313](C:\Users\Administrator\AppData\Roaming\Typora\typora-user-images\image-20230912121617313.png)
-
-
-
-**通过访问获取token，其实就是这里的challenge。**
-
-
-
-
-
-
-
-### srun_portal
-
-
-
-![image-20230912121738835](C:\Users\Administrator\AppData\Roaming\Typora\typora-user-images\image-20230912121738835.png)
-
-
-
-![image-20230912121822220](C:\Users\Administrator\AppData\Roaming\Typora\typora-user-images\image-20230912121822220.png)
-
-
-
-
-
-
-
-
-
-如果是正常的登录的相应：
-
-
-
-![image-20230912120531871](C:\Users\Administrator\AppData\Roaming\Typora\typora-user-images\image-20230912120531871.png)
-
-
-
-![image-20230912120552714](C:\Users\Administrator\AppData\Roaming\Typora\typora-user-images\image-20230912120552714.png)
-
-
-
-
-
-![image-20230912120605212](C:\Users\Administrator\Desktop\image-20230912120605212.png)
-
-
-
-![image-20230912120719918](C:\Users\Administrator\AppData\Roaming\Typora\typora-user-images\image-20230912120719918.png)
-
-![image-20230912120727978](C:\Users\Administrator\AppData\Roaming\Typora\typora-user-images\image-20230912120727978.png)
-
-
-
-![image-20230912120737250](C:\Users\Administrator\AppData\Roaming\Typora\typora-user-images\image-20230912120737250.png)
-
-
-
-
-
-
-
-在JS文件中查找：
-
-### srun.portal.lang.js
-
-
-
-![image-20230912172401867](C:\Users\Administrator\AppData\Roaming\Typora\typora-user-images\image-20230912172401867.png)
-
-
-
-
-
-
-
-### jqery.srun.portal.js
-
-
-
-其中：
-
-各个参数
-
-```js
-            var params = {
-                action: "login",
-                username: username,
-                password: data.password,
-                ac_id: data.ac_id,
-                ip: data.ip || response.client_ip,
-                chksum: chksum(chkstr),
-                info: i,
-                n: n,
-                type: type,
-                os: os.device,
-                name: os.platform,
-                double_stack: data.double_stack
-            };
+### 项目文件分析
+
+```
+|-- ZJUWLAN_Auto_Sign_In
+    |-- README.md
+    |-- Source
+    |   |-- base64_py.py				# base64加密方式
+    |   |-- main.py      				
+    |   |-- md5_py.py					# md5加密方式
+    |   |-- sha1_py.py					# sha1加密方式	
+    |   |-- xEncode_py.py				# xEncode加密方式
+    |   |-- js_for_save
+    |       |-- jqery.srun.portal.js    # 记录登录过程的JS文件，从服务器响应文件中保留存档
+    |       |-- all.min.js    			# 记录加密方法的JS文件，从服务器响应文件中保留存档
+    |       |-- srun.portal.lang.js     # 记录错误信息的的JS文件，从服务器响应文件中保留存档
+    |-- pic
 ```
 
 
 
+### 脚本使用方法
 
+该脚本使用的均为内置库，电脑中需有 python3 运行环境。
 
-#### password
+#### 检查并修改登录URL
 
+在`main.py`中检查所在位置的网络连接请求URL，网络位置为工院我的工位时URL为：
 
-
-
-
-```js
-if (data.otp) 
-{
-    data.password = "{OTP}" + data.password;
-} else {
-    data.password = "{MD5}" + hmd5;
-}
-
-
-hmd5 = pwd(data.password, token);
-
-
-var token = response.challenge,
-
-    
-function pwd(d, k) {
-    return md5(d, k);
-}
-    
-    
+```python
+# Website = "http://10.115.9.2/" # 使用自己网络连接的请求URL
+Website_info = "http://10.115.9.2/cgi-bin/rad_user_info" # 用于读取当前登录的信息
+Website_challenge = "http://10.115.9.2/cgi-bin/get_challenge" # 用于获取token
+Website_portal = "http://10.115.9.2/cgi-bin/srun_portal" # 用于登录
 ```
 
+根据自己所在位置的URL更改文件中的内容，仅需要更改上面所有的 IP 即可。
 
+![](https://github.com/Franch-Toast/ZJUWLAN_Auto_Sign_In/tree/main/pic/2.png)
 
-#### info
+#### 运行脚本
 
-```js
-info: i
+在 IDE 中或在 windows 自带的命令行工具中运行脚本：`python {文件所在路径\}main.py`
 
-i = info({
-    username: username,
-    password: data.password,
-    ip: (data.ip || response.client_ip),
-    acid: data.ac_id,
-    enc_ver: enc
-}, token),
-    
-var enc = "s" + "run" + "_bx1", n = 200, type = 1;
+根据提示输入：
 
+1. 定时检测的时间，以秒作为单位。示例中输入的是 1800 s （30min），即每30min检测一次登陆状态；
+2. 登录账号；
+3. 登录密码。
 
-function info(d, k) {
-    return "{SRBX1}" + $.base64.encode(xEncode(json(d), k));
-}    
-
-```
+![](https://github.com/Franch-Toast/ZJUWLAN_Auto_Sign_In/tree/main/pic/3.png)
 
 
 
-#### checksum
+脚本即刻开始按设定的时间周期运行，并在运行过程中输出检测结果与登录结果：
 
-```js
-chksum: chksum(chkstr)
+- 检测到登陆掉线
+- 当前登录状态良好
+- 登陆失败！已经处于登录状态中
+- 登陆成功！
+- 登陆失败！输入的账号不存在。
+- 登陆失败！输入的账号或密码错误。
 
-function chksum(d) {
-    return sha1(d);// sha1加密
-}
-
-var chkstr = token + username;
-chkstr += token + hmd5;
-chkstr += token + data.ac_id;
-chkstr += token + (data.ip || response.client_ip);
-chkstr += token + n;
-chkstr += token + type;
-chkstr += token + i;
+目前仅添加了以上几个常见的错误信息。
 
 
-var enc = "s" + "run" + "_bx1", n = 200, type = 1;
 
-```
+### 使用结果示例
+
+首先电脑处于未登陆状态后运行脚本，这里作为演示，周期时间设置为 5 s。
+
+#### 成功登录
+
+![](https://github.com/Franch-Toast/ZJUWLAN_Auto_Sign_In/tree/main/pic/4.png)
+
+#### 登陆账号或密码错误
+
+![](https://github.com/Franch-Toast/ZJUWLAN_Auto_Sign_In/tree/main/pic/5.png)
+
+#### 登陆账号不存在
+
+![](https://github.com/Franch-Toast/ZJUWLAN_Auto_Sign_In/tree/main/pic/6.png)
+
 
 
 
