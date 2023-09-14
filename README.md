@@ -37,6 +37,7 @@
     |   |-- md5_py.py					# md5加密方式
     |   |-- sha1_py.py					# sha1加密方式	
     |   |-- xEncode_py.py				# xEncode加密方式
+    |   |-- ZJUWLAN_Auto_Sign_In.exe	# 脚本的可执行文件
     |   |-- js_for_save
     |       |-- jqery.srun.portal.js    # 记录登录过程的JS文件，从服务器响应文件中保留存档
     |       |-- all.min.js    			# 记录加密方法的JS文件，从服务器响应文件中保留存档
@@ -48,9 +49,11 @@
 
 ### 脚本使用方法
 
+#### python3直接运行
+
 该脚本使用的均为内置库，电脑中需有 python3 运行环境。
 
-#### 检查并修改登录URL
+##### 检查并修改登录URL
 
 在`main.py`中检查所在位置的网络连接请求URL，网络位置为工院我的工位时URL为：
 
@@ -65,7 +68,7 @@ Website_portal = "http://10.115.9.2/cgi-bin/srun_portal" # 用于登录
 
 ![](https://github.com/Franch-Toast/ZJUWLAN_Auto_Sign_In/blob/main/pic/2.png)
 
-#### 运行脚本
+##### 运行脚本
 
 在 IDE 中或在 windows 自带的命令行工具中运行脚本：`python {文件所在路径\}main.py`
 
@@ -78,6 +81,18 @@ Website_portal = "http://10.115.9.2/cgi-bin/srun_portal" # 用于登录
 ![](https://github.com/Franch-Toast/ZJUWLAN_Auto_Sign_In/blob/main/pic/3.png)
 
 
+
+#### 可执行文件直接运行
+
+以防有部分同学的电脑没有安装python环境，这里也提供了可执行文件`ZJUWLAN_Auto_Sign_In.exe`，可以在windows操作系统下直接运行：
+
+![](https://github.com/Franch-Toast/ZJUWLAN_Auto_Sign_In/blob/main/pic/7.png)
+
+
+
+
+
+### 脚本输出结果
 
 脚本即刻开始按设定的时间周期运行，并在运行过程中输出检测结果与登录结果：
 
