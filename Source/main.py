@@ -161,16 +161,32 @@ def get_checksum():
 
 
 def get_login_status():
-    params_info = {
-    "callback": "jQuery" + randnum + "_" + str(int(time.time()*1000)),
-    "_": int(time.time()*1000)
-}
-    res = requests.get(Website_info,params=params_info,headers=User_Agent).text
-    # print(res)
+    while True:
+        params_info = {
+        "callback": "jQuery" + randnum + "_" + str(int(time.time()*1000)),
+        "_": int(time.time()*1000)
+    }
+        try:
+            res = requests.get(Website_info,params=params_info,headers=User_Agent).text
+        # print(res)
+        except Exception:
+            print("获取网络登录状态失败，30min后重新尝试。\n")
+            time.sleep(1800)
+            continue
+        else:
+            break
     return res
 
 def get_client_ip():
-    res = get_login_status()
+    while True:
+        try:
+            res = get_login_status()
+        except Exception:
+            print("获取客户端ip失败，可能是网络硬件出现问题。30min后重新获取\n")
+            time.sleep(1800)
+            continue
+        else:
+            break
     return re.search('"online_ip":"(.*?)"', res).group(1)
 
 
